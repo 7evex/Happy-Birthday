@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+  <title>Happy Birthday, Sara</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Playfair+Display:wght@700&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: auto;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background-color: #1B263B;
+      font-family: 'Merriweather', serif;
+      color: #F5F3F1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 30px 20px 60px 20px;
+      max-width: 100vw;
+      box-sizing: border-box;
+    }
+    .container {
+      max-width: 700px;
+      background: rgba(245, 243, 241, 0.95);
+      padding: 45px 55px;
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(203, 161, 53, 0.3);
+      position: relative;
+      z-index: 10;
+      color: #1B263B;
+      overflow-wrap: break-word;
+    }
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 3.8rem;
+      color: #CBA135;
+      text-align: center;
+      margin-bottom: 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      user-select: none;
+      word-break: break-word;
+    }
+    .subtitle {
+      font-style: italic;
+      font-weight: 600;
+      color: #7B6B3D;
+      text-align: center;
+      margin-bottom: 42px;
+      letter-spacing: 0.1em;
+    }
+    .poem {
+      font-size: 1.28rem;
+      line-height: 1.75;
+      white-space: pre-wrap;
+      letter-spacing: 0.015em;
+      font-weight: 500;
+      word-break: break-word;
+    }
+
+    /* MOBILE FIXES */
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+        max-width: 100vw;
+        margin: 0 10px;
+      }
+      .title {
+        font-size: 2.4rem !important;
+        line-height: 1.2;
+      }
+      .poem {
+        font-size: 1.1rem !important;
+        line-height: 1.5 !important;
+      }
+    }
+
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+  <div class="container" aria-label="Birthday Poem for Sara">
+    <h1 class="title">Happy Birthday, Sara</h1>
+    <div class="subtitle">July 3rd, 2025</div>
+    <div class="poem">
+The day I met you Sara, I had no idea that you would become everything to me. I didn't expect to find someone who I would change myself for and be a better person for. But with every day that passed, I grew closer and closer to you, until you became more than just a person that I liked/loved. You became my reason, my home and my light in darkness, my other half. Without you, I am not me and I am not complete. You are not just a part of my life. You are the life itself. I was not expecting you, nor that my heart was searching for someone. BUT yet you showed up in my life like how the moon shows up in the night sky. The moon shines in the dark sky just as you shined in my empty heart. To be honest, I don't believe in coincidences, I believe God placed you in my life for a reason; I am pretty sure it's for the most beautiful reason. I didn't choose to fall in love with you because I was lonely or I needed someone, far from that I was busy in my own life and I was at peace in my own quiet world until you showed up, just like how the moon shows up in darkness. Your presence was more than just a dim light. It was a spark which lit up my entire life. My life started the day I found out I was deeply in love with you. It felt like that was the day I was actually born and my life started. I was never into writing but yet here I am writing for the love of my life. For you, everything becomes likable. Thinking about how perfect you are just sparks my entire body to write about it even though I didn't like writing. I hope you understand my love for yourself. No matter how much you understand, you can never understand it fully. Sara, I love you wholeheartedly. I don't mean my love is only for our good days; I will love you even on our worst days yet to come. This is my promise to you: I am not here for a short time, I am not with you to waste time. I want a life with you and I am willing to build one with you. I want to spend my entire existence with you. It was never my plan to fall in love or find someone until you came. You changed everything. Now you are always in my mind. I can't let go of you because losing you would mean losing myself. Loving you has been the best decision of my life. I WILL ALWAYS LOVE YOU, not only on our good days. I will love you even on the days we don't understand each other, on the days we argue, on the days we hurt each other because you are the only person I want to love at the end of the day. I can imagine and I never want to imagine loving another person. I cannot promise to love you perfectly the way you want, but I can promise to love you endlessly the way I LOVE YOU. Not even a single argument or a single fight between us can change the way I feel about you. I am sorry I cannot do anything more for your special day — the day that the best girl in my life was born, the day that my reason to live was born. Your birthday will always be the day that I thank God for giving you to me. (I will thank God always every day but your birthday will be more special.)
+
+Sara, I hope you understand my love, and I hope you love me the same.
+
+Remember, I will always choose to love you.
+    </div>
+  </div>
+
+  <audio id="bg-music" loop autoplay>
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script>
+    const audio = document.getElementById('bg-music');
+    window.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play().catch((e) => console.log(e));
+      }
+    });
+  </script>
+
+  <script>
+    const canvas = document.getElementById('particle-canvas'),
+      ctx = canvas.getContext('2d');
+    let particles = [];
+    function init() {
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+      particles = [];
+      for (let i = 0; i < innerWidth / 15; i++) particles.push(new Particle());
+    }
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 1.5 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.25;
+        this.speedY = (Math.random() - 0.5) * 0.25;
+        this.opacity = Math.random() * 0.5 + 0.3;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+      }
+      draw() {
+        ctx.fillStyle = `rgba(203,161,53,${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+    }
+    window.addEventListener('load', init);
+    window.addEventListener('resize', init);
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
